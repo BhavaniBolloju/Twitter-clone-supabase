@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../public/twitter.svg";
 import { supabase } from "../library/supebaseClient";
+import * as routes from "../constants/route-paths";
 
 function SignupPage() {
   const [inputEmail, setInputEmail] = useState("");
@@ -35,11 +36,6 @@ function SignupPage() {
         className="w-[300px] flex flex-col gap-6 mx-auto"
         onSubmit={signupHandler}
       >
-        {/* <input
-          className="border border-gray-300 h-10 px-5 py-2 rounded-md placeholder:text-sm focus:outline-2 focus: outline-blue-400 focus:placeholder:text-blue-300"
-          placeholder="Name"
-          type="text"
-        /> */}
         <input
           className="border border-gray-300 h-10 px-5 py-2 rounded-md placeholder:text-sm focus:outline-2 focus: outline-blue-400 focus:placeholder:text-blue-300"
           placeholder="E-mail"
@@ -61,7 +57,7 @@ function SignupPage() {
           Have an account?
           <Link
             className="text-blue-500 ml-1 text-sm hover:underline"
-            to="/LOG_IN"
+            to={routes.signin}
           >
             Sign In
           </Link>

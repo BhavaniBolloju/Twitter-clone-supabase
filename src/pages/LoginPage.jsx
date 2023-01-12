@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../public/twitter.svg";
 import { supabase } from "../library/supebaseClient";
+import * as routes from "../constants/route-paths";
 
 function LoginPage() {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [errorFound, setErrorFound] = useState(null);
+  const navigate = useNavigate();
 
   const signupHandler = async function (e) {
     e.preventDefault();
@@ -19,13 +21,12 @@ function LoginPage() {
     if (error) {
       setErrorFound("Invalid login credentials");
     } else {
-      console.log("Logged in successfully");
+      console.log(data);
+      navigate(routes.home);
     }
     setInputEmail("");
     setInputPassword("");
   };
-
-  // console.log(error);
 
   return (
     <div className="flex flex-col w-[480px] pt-12 px-16 pb-24 mx-auto mt-[100px] rounded-lg bg-white text-gray-500">
@@ -57,7 +58,7 @@ function LoginPage() {
           Don't have an account?
           <Link
             className="text-blue-500 ml-1 text-sm hover:underline"
-            to="/SIGN_UP"
+            to={routes.signup}
           >
             Sign up
           </Link>
