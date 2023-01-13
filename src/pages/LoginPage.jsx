@@ -21,7 +21,6 @@ function LoginPage() {
     if (error) {
       setErrorFound("Invalid login credentials");
     } else {
-      console.log(data);
       navigate(routes.home);
     }
     setInputEmail("");

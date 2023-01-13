@@ -8,7 +8,7 @@ import * as routes from "./constants/route-paths";
 import { AuthContext } from "./context/auth-context";
 
 function App() {
-  const { token, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <Routes>

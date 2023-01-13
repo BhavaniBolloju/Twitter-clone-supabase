@@ -1,17 +1,33 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import TimeLine from "../components/TimeLine";
 import Sidebar from "../components/Sidebar";
-
-import Home from "../components/Home";
 import SuggestedProfiles from "../components/SuggestedProfiles";
 import { AuthContext } from "../context/auth-context";
+import { supabase } from "../library/supebaseClient";
 
 function HomePage() {
-  const { user } = useContext(AuthContext);
+  const {
+    user: { user },
+  } = useContext(AuthContext);
+  const [userProfile, setUserProfile] = useState();
+
+  useEffect(() => {
+    const userDetails = async function () {
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("*, posts(*)")
+        .eq("id", user.id);
+      setUserProfile(profile);
+    };
+    userDetails();
+  }, []);
+
+  // console.log(useProfile);
 
   return (
-    <div className="flex py-5 max-w-screen-xl mx-auto">
+    <div className="flex px-10 py-2 gap-5">
       <Sidebar />
-      <Home />
+      {userProfile && <TimeLine userProfile={userProfile[0]} />}
       <SuggestedProfiles />
     </div>
   );

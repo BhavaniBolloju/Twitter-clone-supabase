@@ -7,23 +7,25 @@ export const AuthContext = createContext({
 });
 
 export const AuthContextProvider = function (props) {
-  const { supabase } = useContext(SupabaseContext);
+  const authToken = localStorage.getItem("authUser");
 
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const { supabase } = useContext(SupabaseContext);
+  const [user, setUser] = useState(JSON.parse(authToken));
 
   useEffect(() => {
-    const userData = async function () {
-      const { data } = await supabase.auth.getSession();
-      setUser(data.session.user);
-      setToken(data.session.access_token);
-    };
-    userData();
+    const listener = supabase.auth.onAuthStateChange((event, session) => {
+      if (event == "SIGNED_IN") {
+        localStorage.setItem("authUser", JSON.stringify(session));
+        setUser(session);
+      } else {
+        localStorage.removeItem("authUser");
+        setUser(null);
+      }
+    });
   }, []);
 
   const authValues = {
     user,
-    token,
   };
 
   return (
