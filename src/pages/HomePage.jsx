@@ -22,13 +22,13 @@ function HomePage() {
     userDetails();
   }, []);
 
-  // console.log(useProfile);
+  // console.log(userProfile, "user");
 
   return (
-    <div className="flex px-10 py-2 gap-5">
+    <div className="flex px-10 py-2 max-w-screen-xl mx-auto">
       <Sidebar />
       {userProfile && <TimeLine userProfile={userProfile[0]} />}
-      <SuggestedProfiles />
+      {userProfile && <SuggestedProfiles loggedUserProfile={userProfile[0]} />}
     </div>
   );
 }

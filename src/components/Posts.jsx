@@ -9,8 +9,8 @@ function Posts(props) {
           key={post.post_id}
           fullname={props.fullname}
           username={props.username}
-          caption={post.caption}
-          created={post.created_at}
+          post={post}
+          imageSrc={props.imageSrc}
         />
       ))}
     </div>
